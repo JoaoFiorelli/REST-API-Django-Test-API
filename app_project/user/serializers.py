@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from user import models
+from .models import UserProfile
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
     """User Profile Serializer"""
 
     class Meta:
-        model = models.UserProfile
+        model = UserProfile
         fields = ('id', 'name', 'email', 'password')
         extra_kwargs = {
             'password': {
@@ -18,7 +18,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """Cria um usuário"""
 
-        user = models.UserProfile.objects.create(
+        user = UserProfile.objects.create(
             name=validated_data['name'], 
             email=validated_data['email'],
             password=validated_data['password'],

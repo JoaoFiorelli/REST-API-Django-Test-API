@@ -4,18 +4,18 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 
-from user import serializers
-from user import models
-from user import permissions
+from .serializers import UserProfileSerializer
+from .models import UserProfile
+from .permissions import UpdateOwnProfile
 
 
 class UserViewSet(viewsets.ModelViewSet):
     """Usuário ViewSet"""
 
-    serializer_class = serializers.UserProfileSerializer
-    queryset = models.UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+    queryset = UserProfile.objects.all()
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (permissions.UpdateOwnProfile,)
+    permission_classes = (UpdateOwnProfile,)
 
 
 class UserLoginApiView(ObtainAuthToken):
